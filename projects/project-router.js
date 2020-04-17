@@ -35,20 +35,22 @@ router.post('/', (req, res) => {
     })
 })
 
-router.post('/:id', (req, res) => {
+router.post('/:id/tasks', (req, res) => {
     const newTask = req.body;
-    Project.addTask(newTask)
+    const { id } = req.params;
+    Project.addTask(newTask, id)
     .then(task => {
+        console.log('in promise', task)
         res.status(201).json(task)
     })
     .catch(err => {
-        res.status(500).json({error: 'Could create new task'})
+        console.log(err)
+        res.status(500).json({error: 'Couldn\'t  create new task'})
     })
 });
 
 router.get('/:id/tasks', (req, res) => {
     const { id } = req.params;
-    console.log('before promise')
     Project.getTasks(id)
     .then(task => {
       if (task.length) {

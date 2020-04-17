@@ -7,7 +7,8 @@ module.exports = {
     update,
     remove,
     addTask,
-    getTasks
+    getTasks,
+    getTaskById
 };
 
 function findAll() {
@@ -34,16 +35,16 @@ function remove(id) {
     return db('projects').where({ id }).del()
 }
 
-function addTask(data) {
-    return db('tasks')
-    .insert(data, "id") 
-    .then(([id]) => {
-        return findById(id); 
+function addTask(data, id) {
+    console.log('in the helper', data)
+    return db('tasks').insert(data, "id")
+    .then(([id])=>{
+        console.log(id)
+        return getTaskById(id)
     })
 }
 
 function getTasks(id) {
-    console.log('in helper', id)
     // select projects.name, projects.description, tasks.description from tasks
     // JOIN projects on tasks.project_id = projects.id
     // where projects.id = 1
@@ -53,4 +54,8 @@ function getTasks(id) {
     .where('projects.id', id)
     .select('projects.name','projects.description', 'tasks.description')
     .orderBy('tasks.id')
+}
+
+function getTaskById(id) {
+    return db('tasks').where('tasks.id', id)
 }
