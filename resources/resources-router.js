@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
         res.status(200).json(resources)
     })
     .catch(err => {
-        res.status(500).json({error: 'Could not get projects'})
+        res.status(500).json({error: 'Could not get resources'})
     })
 })
 
@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
         res.status(201).json(resource)
     })
     .catch(err => {
-        res.status(500).json({error: 'Could create new project'})
+        res.status(500).json({error: 'Could create new resource'})
     })
 })
 module.exports = router;
