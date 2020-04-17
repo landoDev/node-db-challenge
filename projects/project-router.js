@@ -36,7 +36,7 @@ router.post('/', (req, res) => {
     })
 })
 
-router.post('/:id/resources', (req, res) => {
+router.post('/resources', (req, res) => {
     const newResource = req.body;
     Resource.create(newResource)
     Project.create(newProject)
